@@ -54,9 +54,8 @@ export const EventList = async () => {
 
           <p className="text-sm text-green-500 font-semibold">
               Register To Attend
-            </a>
           </p>
-        </div>
+        </div>            </a>
       ))}
     </div>
   );
