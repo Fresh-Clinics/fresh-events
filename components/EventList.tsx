@@ -12,7 +12,6 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    tag: string;
   };
 };
 
@@ -75,7 +74,6 @@ export const EventList: React.FC = () => {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
             </p>
-            {event.tag}
             <img src={event.cover_url} alt={event.name} className="w-full h-auto mt-2" />
             <p className="text-md text-green-500 font-semibold padding-top">
                 Register To Attend
