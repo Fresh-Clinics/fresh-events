@@ -71,7 +71,7 @@ const EventList: React.FC = () => {
                 {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
               </p>
               <p className="text-md text-green-500 font-semibold padding-top">
-                Register To Attend
+                REGISTER
               </p>
             </div>
           </div>
