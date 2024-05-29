@@ -4,6 +4,7 @@ type EventData = {
     api_id: string;
     name: string;
     start_at: string;
+    end_at: string
     cover_url: string;
     url: string;
   };
@@ -51,7 +52,14 @@ export const EventList = async () => {
               minute: "2-digit",
             })} 
           </p>
-          <p className="text-sm text-green-500 font-semibold">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+            {new Date(event.end_at).toLocaleString(undefined, {
+
+              hour: "numeric",
+              minute: "2-digit",
+            })} 
+          </p>
+          <p className="text-sm text-green-500 font-semibold padding-top">
               Register To Attend
           </p>
         </div>            </a>
