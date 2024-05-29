@@ -2,7 +2,7 @@ import { EventList } from "@/components/EventList";
 
 export function HomePage() {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen">
           <div className="container px-4 md:px-6">
             <div className="grid gap-10 sm:grid-cols-2">
               <div className="space-y-4 max-w-[600px]">
