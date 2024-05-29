@@ -59,25 +59,28 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
-          <p className="text-md text-gray-500 dark:text-gray-400">
-            {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
-            <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
-          </p>
-          <div className="grid gap-1">
-            <h2 className="text-lg font-semibold">{event.name}</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
+        <a className="event-box flex items-start justify-between" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+          <div className="flex-grow">
+            <p className="text-md text-gray-500 dark:text-gray-400">
+              {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
+              <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
             </p>
-            <p className="text-md text-green-500 font-semibold padding-top">
+            <div className="grid gap-1">
+              <h3 className="text-lg font-semibold">{event.name}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
+              </p>
+              <p className="text-md text-green-500 font-semibold padding-top">
                 Register To Attend
-            </p>
+              </p>
+            </div>
           </div>
           {event.cover_url && (
             <img
               src={event.cover_url}
               alt={event.name}
-              className="absolute top-0 right-0 rounded-md max-w-[20%] p-2"
+              className="rounded-md max-w-[20%] ml-4"
+              style={{ borderRadius: '4px', padding: '15px' }}
             />
           )}
         </a>
