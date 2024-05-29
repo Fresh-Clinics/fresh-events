@@ -18,21 +18,30 @@ type EventData = {
 
 const getEvents = async (): Promise<EventData[]> => {
   try {
+    const apiKey = process.env.NEXT_PUBLIC_LUMA_API_KEY;
+    if (!apiKey) {
+      throw new Error("API key is missing");
+    }
+
     const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
       method: "GET",
       headers: {
         accept: "application/json",
-        "x-luma-api-key": process.env.NEXT_PUBLIC_LUMA_API_KEY as string,
+        "x-luma-api-key": apiKey,
       },
     });
 
     if (!res.ok) {
+      const errorText = await res.text();
+      console.error("Failed to fetch data:", res.status, errorText);
       throw new Error("Failed to fetch data");
     }
 
     const data = (await res.json()) as { entries: EventData[] };
+    console.log("Fetched events data:", data.entries);
     return data.entries;
   } catch (error) {
+    console.error("Error fetching events:", error);
     throw error;
   }
 };
