@@ -79,7 +79,7 @@ const EventList: React.FC = () => {
             <img
               src={event.cover_url}
               alt={event.name}
-              className="rounded-md max-w-[20%] ml-4 p-2"
+              className="rounded-md max-w-[20%] ml-4 img-format"
               style={{ borderRadius: '4px' }}
             />
           )}
