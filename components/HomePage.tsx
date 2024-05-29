@@ -1,4 +1,4 @@
-import { EventList } from "@/components/EventList";
+import EventList from "@/components/EventList";
 
 export function HomePage() {
   return (
@@ -11,7 +11,7 @@ export function HomePage() {
                 <h2 className="text-3xl font-bold sm:text-xl md:text-3xl">
                   Events
                 </h2>
-               <EventList />
+                <EventList />
               </div>
             </div>
           </div>
