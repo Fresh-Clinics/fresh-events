@@ -1,5 +1,3 @@
-// components/EventList.tsx
-
 "use client";
 
 import React, { useEffect, useState } from 'react';
@@ -50,7 +48,7 @@ const EventList: React.FC = () => {
     fetchEvents();
   }, []);
 
-  const currentDate = moment().tz("Australia/Sydney").startOf('day');
+  const currentDate = moment().tz("Australia/Sydney").startOf('day'); // Set the current date to start of the day in AEST
 
   const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
 
@@ -59,27 +57,29 @@ const EventList: React.FC = () => {
   }
 
   return (
-    <div className="timeline">
+    <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="timeline-item" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
-          <div className="timeline-content">
-            <p className="text-md text-gray-500 dark:text-gray-400">
-              {moment(event.start_at).tz("Australia/Sydney").format('D MMM')} 
-              <span className="text-sm text-gray-500 dark:text-gray-400 opacity-50">
-                ({moment(event.start_at).tz("Australia/Sydney").format('dddd')})
-              </span>
+        <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+          <p className="text-md text-gray-500 dark:text-gray-400">
+            {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
+            <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
+          </p>
+          <div className="grid gap-1">
+            <h3 className="text-lg font-semibold">{event.name}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
-            <div className="grid gap-1">
-              <h3 className="text-lg font-semibold">{event.name}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')} AEST
-              </p>
-              <p className="text-md text-green-500 font-semibold padding-top">
-                  Register To Attend
-              </p>
-            </div>
-            {event.cover_url && <img src={event.cover_url} alt={event.name} className="event-image" />}
+            <p className="text-md text-green-500 font-semibold padding-top">
+                Register To Attend
+            </p>
           </div>
+          {event.cover_url && (
+            <img
+              src={event.cover_url}
+              alt={event.name}
+              className="absolute top-0 right-0 rounded-md max-w-[20%] ml-auto"
+            />
+          )}
         </a>
       ))}
     </div>
