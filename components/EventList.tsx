@@ -10,7 +10,6 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    tag: string;
   };
 };
 
@@ -49,7 +48,6 @@ export const EventList: React.FC = async () => {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
             </p>
-            {event.tag}
             <p className="text-md text-green-500 font-semibold padding-top">
                 Register To Attend
             </p>
