@@ -8,9 +8,9 @@ export function HomePage() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-10">
               <div className="space-y-4">
-                <h2 className="text-3xl font-bold sm:text-xl md:text-3xl">
+                <h1 className="text-3xl font-bold sm:text-xl md:text-3xl">
                   Events
-                </h2>
+                </h1>
                 <EventList />
               </div>
             </div>
