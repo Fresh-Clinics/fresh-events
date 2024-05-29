@@ -56,11 +56,12 @@ export const EventList = async () => {
               minute: "2-digit",
             })}
           </p>
-        <iframe src="{event.cover_url}" width="5em" height="5em"></iframe>
+        <div key={api_id}>
+          <iframe src="{event.cover_url}" width="5em" height="5em"></iframe>
           <p className="text-md text-green-500 font-semibold padding-top">
               Register To Attend
           </p>
-        </div>            </a>
+        </div></div>            </a>
       ))}
     </div>
   );
