@@ -37,7 +37,7 @@ export const EventList = async () => {
             {new Date(event.start_at).toLocaleString(undefined, {
               day: "numeric",
               month: "long",
-              timeZone: "America/New_York",
+              timeZone: "Australia/Sydney",
               year: "numeric",
             })}
           </p>
@@ -49,16 +49,12 @@ export const EventList = async () => {
 
               hour: "numeric",
               minute: "2-digit",
-            })}
-          </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-            {new Date(event.end_at).toLocaleString(undefined, {
+            })} {new Date(event.end_at).toLocaleString(undefined, {
 
               hour: "numeric",
               minute: "2-digit",
             })}
           </p>
-<br></br>
           <p className="text-sm text-green-500 font-semibold">
               Register To Attend
           </p>
