@@ -1,4 +1,8 @@
-import React from 'react';
+// components/EventList.tsx
+
+"use client";
+
+import React, { useEffect, useState } from 'react';
 import moment from 'moment-timezone';
 
 type EventData = {
@@ -10,15 +14,16 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
+    tag: string;
   };
 };
 
-async function getEvents(): Promise<EventData[]> {
+const getEvents = async (): Promise<EventData[]> => {
   const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
     method: "GET",
     headers: {
       accept: "application/json",
-      "x-luma-api-key": process.env.LUMA_API_KEY as string,
+      "x-luma-api-key": process.env.NEXT_PUBLIC_LUMA_API_KEY as string,
     },
   });
 
@@ -28,13 +33,31 @@ async function getEvents(): Promise<EventData[]> {
 
   const data = (await res.json()) as { entries: EventData[] };
   return data.entries;
-}
+};
 
-export const EventList: React.FC = async () => {
-  const events = await getEvents();
+const EventList: React.FC = () => {
+  const [events, setEvents] = useState<EventData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const fetchedEvents = await getEvents();
+        setEvents(fetchedEvents);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+    fetchEvents();
+  }, []);
+
   const currentDate = moment().tz("Australia/Sydney").startOf('day'); // Set the current date to start of the day in AEST
 
   const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
+
+  if (error) {
+    return <p>Error loading events: {error}</p>;
+  }
 
   return (
     <div className="grid gap-4">
@@ -48,12 +71,16 @@ export const EventList: React.FC = async () => {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
             </p>
+            {event.tag}
             <p className="text-md text-green-500 font-semibold padding-top">
                 Register To Attend
             </p>
+            {event.cover_url && <img src={event.cover_url} alt={event.name} />}
           </div>
         </a>
       ))}
     </div>
   );
 };
+
+export default EventList;
