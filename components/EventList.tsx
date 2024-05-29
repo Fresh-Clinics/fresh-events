@@ -1,3 +1,5 @@
+"use client"; // This directive tells Next.js to treat this file as a client component
+
 import React, { useEffect, useState } from 'react';
 import moment from 'moment-timezone';
 
@@ -19,7 +21,7 @@ const getEvents = async (): Promise<EventData[]> => {
       method: "GET",
       headers: {
         accept: "application/json",
-        "x-luma-api-key": process.env.LUMA_API_KEY as string,
+        "x-luma-api-key": process.env.NEXT_PUBLIC_LUMA_API_KEY as string,
       },
     });
 
@@ -62,6 +64,7 @@ export const EventList: React.FC = () => {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
             </p>
+            <img src={event.cover_url} alt={event.name} className="w-full h-auto mt-2" />
             <p className="text-md text-green-500 font-semibold padding-top">
                 Register To Attend
             </p>
