@@ -56,7 +56,7 @@ export const EventList = async () => {
               minute: "2-digit",
             })}
           </p>
-        <img src="{event.cover_url}"></img>
+        {event.cover_url}
           <p className="text-md text-green-500 font-semibold padding-top">
               Register To Attend
           </p>
