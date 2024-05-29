@@ -65,7 +65,7 @@ const EventList: React.FC = () => {
             <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
           </p>
           <div className="grid gap-1">
-            <h3 className="text-lg font-semibold">{event.name}</h3>
+            <h2 className="text-lg font-semibold">{event.name}</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
@@ -77,7 +77,7 @@ const EventList: React.FC = () => {
             <img
               src={event.cover_url}
               alt={event.name}
-              className="absolute top-0 right-0 rounded-md max-w-[20%] ml-auto"
+              className="absolute top-0 right-0 rounded-md max-w-[20%] p-2"
             />
           )}
         </a>
