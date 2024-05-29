@@ -4,17 +4,8 @@ This is an example website showing how you can integrate the Luma API into your 
 
 For this project, we are using [Next.js](https://nextjs.org/docs) and the [Luma API](https://docs.lu.ma).
 
-[GitHub Repo](https://github.com/luma-team/basketball-club-example) [Live Demo](https://basketball-club-example.luma-dev.com)
+[GitHub Repo](https://github.com/Fresh-Clinics/fresh-events) [Live Demo](https://fresh-events.vercel.app/)
 
-## Running the Project
-
-```sh
-# Install dependencies
-pnpm install
-
-# Run the web server
-pnpm dev
-```
 
 ## Configuration
 
