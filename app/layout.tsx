@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Fresh Events",
-  description: "Stay up to date with all the webinars, training & events with Fresh Clinics",
+  description: "Stay up to date with all webinars, training, & events with Fresh Clinics",
 };
 
 export default function RootLayout({
