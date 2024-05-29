@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 
 type EventData = {
   api_id: string;
@@ -33,21 +32,33 @@ async function getEvents(): Promise<EventData[]> {
 
 export const EventList: React.FC = async () => {
   const events = await getEvents();
-  const currentDate = moment().tz("Australia/Sydney").startOf('day'); // Set the current date to start of the day in AEST
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); // Set the current date time to midnight to include events from today
 
-  const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
+  const futureEvents = events.filter(({ event }) => new Date(event.start_at) >= currentDate);
 
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
         <a className="event-box" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            {moment(event.start_at).tz("Australia/Sydney").format('MMMM Do YYYY')}
+            {new Date(event.start_at).toLocaleString(undefined, {
+              day: "numeric",
+              month: "long",
+              timeZone: "Australia/Sydney",
+              year: "numeric",
+            })}
           </p>
           <div className="grid gap-1">
             <h3 className="text-lg font-semibold">{event.name}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
+              {new Date(event.start_at).toLocaleString(undefined, {
+                hour: "numeric",
+                minute: "2-digit",
+              })} - {new Date(event.end_at).toLocaleString(undefined, {
+                hour: "numeric",
+                minute: "2-digit",
+              })}
             </p>
             {event.tag}
             <p className="text-md text-green-500 font-semibold padding-top">
