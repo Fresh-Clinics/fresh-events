@@ -1,5 +1,3 @@
-// components/EventList.tsx
-
 "use client";
 
 import React, { useEffect, useState } from 'react';
@@ -14,7 +12,6 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    tag: string;
   };
 };
 
@@ -62,21 +59,20 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {moment(event.start_at).tz("Australia/Sydney").format('MMMM Do YYYY')}
-          </p>
-          <div className="grid gap-1">
+        <a className="event-box flex items-start justify-between p-4 border rounded-md hover:shadow-lg" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+          <div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {moment(event.start_at).tz("Australia/Sydney").format('MMMM Do YYYY')}
+            </p>
             <h3 className="text-lg font-semibold">{event.name}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
             </p>
-            {event.tag}
             <p className="text-md text-green-500 font-semibold padding-top">
-                Register To Attend
+              Register To Attend
             </p>
-            {event.cover_url && <img src={event.cover_url} alt={event.name} />}
           </div>
+          {event.cover_url && <img src={event.cover_url} alt={event.name} className="max-w-[20%] ml-4 rounded-md" />}
         </a>
       ))}
     </div>
