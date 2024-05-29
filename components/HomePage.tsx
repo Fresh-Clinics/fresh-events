@@ -11,6 +11,7 @@ export function HomePage() {
                 <h2 className="text-3xl font-bold sm:text-xl md:text-3xl">
                   Events
                 </h2>
+                <iframe src="https://lu.ma/embed/calendar/cal-PfKCHyYHQHvdr87/events" width="80%" height="100%"
 
                 <EventList />
               </div>
