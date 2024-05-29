@@ -54,7 +54,7 @@ export const EventList = async () => {
 
               hour: "numeric",
               minute: "2-digit",
-            })
+            })}
           </p>
           <p className="text-lg text-green-500 font-semibold padding-top">
               Register To Attend
