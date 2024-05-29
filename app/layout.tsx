@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NYC Basketball Club",
-  description: "This is an example site showing how you can use the Luma API.",
+  title: "Fresh Events",
+  description: "Stay up to date with all the webinars, training & events with Fresh Clinics",
 };
 
 export default function RootLayout({
