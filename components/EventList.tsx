@@ -1,3 +1,6 @@
+// This tells Next.js that this file should be treated as a client component
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import moment from 'moment-timezone';
 
@@ -37,7 +40,7 @@ export const EventList: React.FC = () => {
     getEvents().then(setEvents);
   }, []);
 
-  const currentDate = moment().tz("Australia/Sydney").startOf('day'); // Set the current date to start of the day in AEST
+  const currentDate = moment().tz("Australia/Sydney").startOf('day'); 
   const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
 
   return (
