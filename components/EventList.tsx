@@ -1,4 +1,3 @@
-// This tells Next.js that this file should be treated as a client component
 "use client";
 
 import React, { useEffect, useState } from 'react';
@@ -16,32 +15,41 @@ type EventData = {
   };
 };
 
-async function getEvents(): Promise<EventData[]> {
-  const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      "x-luma-api-key": process.env.LUMA_API_KEY as string,
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  const data = (await res.json()) as { entries: EventData[] };
-  return data.entries;
-}
-
-export const EventList: React.FC = () => {
+const EventList: React.FC = () => {
   const [events, setEvents] = useState<EventData[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getEvents().then(setEvents);
+    async function fetchEvents() {
+      try {
+        const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            "x-luma-api-key": process.env.LUMA_API_KEY as string,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await res.json() as { entries: EventData[] };
+        setEvents(data.entries);
+      } catch (err: any) {
+        setError(err.message);
+      }
+    }
+
+    fetchEvents();
   }, []);
 
   const currentDate = moment().tz("Australia/Sydney").startOf('day'); 
   const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
+
+  if (error) {
+    return <div>Error loading events: {error}</div>;
+  }
 
   return (
     <div className="grid gap-4">
@@ -65,3 +73,5 @@ export const EventList: React.FC = () => {
     </div>
   );
 };
+
+export default EventList;
