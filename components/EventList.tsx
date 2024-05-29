@@ -1,6 +1,4 @@
-"use client"; // This directive tells Next.js to treat this file as a client component
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import moment from 'moment-timezone';
 
 type EventData = {
@@ -15,56 +13,32 @@ type EventData = {
   };
 };
 
-const getEvents = async (): Promise<EventData[]> => {
-  try {
-    const apiKey = process.env.NEXT_PUBLIC_LUMA_API_KEY;
-    console.log('Using API Key:', apiKey); // Log the API key (ensure it's not logged in production)
-    if (!apiKey) {
-      throw new Error("API key is missing");
-    }
+async function getEvents(): Promise<EventData[]> {
+  const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      "x-luma-api-key": process.env.LUMA_API_KEY as string,
+    },
+  });
 
-    const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "x-luma-api-key": apiKey,
-      },
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error("Failed to fetch data:", res.status, errorText);
-      throw new Error("Failed to fetch data");
-    }
-
-    const data = (await res.json()) as { entries: EventData[] };
-    console.log("Fetched events data:", data.entries);
-    return data.entries;
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    throw error;
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
   }
-};
 
-export const EventList: React.FC = () => {
-  const [events, setEvents] = useState<EventData[]>([]);
-  const [error, setError] = useState<string>('');
+  const data = (await res.json()) as { entries: EventData[] };
+  return data.entries;
+}
 
-  useEffect(() => {
-    const currentDate = moment().tz("Australia/Sydney").startOf('day');
-    getEvents().then(events => {
-      const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
-      setEvents(futureEvents);
-    }).catch(err => setError(err.message));
-  }, []);
+export const EventList: React.FC = async () => {
+  const events = await getEvents();
+  const currentDate = moment().tz("Australia/Sydney").startOf('day'); // Set the current date to start of the day in AEST
 
-  if (error) {
-    return <p>Error loading events: {error}</p>;
-  }
+  const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
 
   return (
     <div className="grid gap-4">
-      {events.map(({ event, api_id }) => (
+      {futureEvents.map(({ event, api_id }) => (
         <a className="event-box" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {moment(event.start_at).tz("Australia/Sydney").format('MMMM Do YYYY')}
@@ -74,7 +48,6 @@ export const EventList: React.FC = () => {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
             </p>
-            <img src={event.cover_url} alt={event.name} className="w-full h-auto mt-2" />
             <p className="text-md text-green-500 font-semibold padding-top">
                 Register To Attend
             </p>
