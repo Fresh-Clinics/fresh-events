@@ -33,7 +33,7 @@ export const EventList = async () => {
   return (
     <div className="grid gap-4">
       {events.map(({ event, api_id }) => (
-        <a href={event.url} target="_blank">
+        <a className="event-box" href={event.url} target="_blank">
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {new Date(event.start_at).toLocaleString(undefined, {
               day: "numeric",
@@ -50,16 +50,13 @@ export const EventList = async () => {
 
               hour: "numeric",
               minute: "2-digit",
-            })} 
-          </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-            {new Date(event.end_at).toLocaleString(undefined, {
+            })} - {new Date(event.end_at).toLocaleString(undefined, {
 
               hour: "numeric",
               minute: "2-digit",
-            })} 
+            })
           </p>
-          <p className="text-sm text-green-500 font-semibold padding-top">
+          <p className="text-lg text-green-500 font-semibold padding-top">
               Register To Attend
           </p>
         </div>            </a>
