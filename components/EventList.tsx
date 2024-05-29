@@ -67,7 +67,7 @@ const EventList: React.FC = () => {
             <div className="grid gap-1">
               <h3 className="text-lg font-semibold">{event.name}</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')}
+                {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A')} AEST
               </p>
               <p className="text-md text-green-500 font-semibold padding-top">
                 Register To Attend
