@@ -9,7 +9,7 @@ export function HomePage() {
             <div className="grid gap-10">
               <div className="space-y-4">
                 <h2 className="text-3xl font-bold sm:text-xl md:text-3xl">
-                  Upcoming Events
+                  Events
                 </h2>
 
                 <EventList />
