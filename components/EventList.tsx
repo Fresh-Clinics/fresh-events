@@ -7,6 +7,7 @@ type EventData = {
     end_at: string
     cover_url: string;
     url: string;
+    tag: string
   };
 };
 
