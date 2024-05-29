@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState } from 'react';
 import moment from 'moment-timezone';
 
@@ -15,47 +13,47 @@ type EventData = {
   };
 };
 
-const EventList: React.FC = () => {
-  const [events, setEvents] = useState<EventData[]>([]);
-  const [error, setError] = useState<string | null>(null);
+const getEvents = async (): Promise<EventData[]> => {
+  try {
+    const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "x-luma-api-key": process.env.LUMA_API_KEY as string,
+      },
+    });
 
-  useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const res = await fetch("https://api.lu.ma/public/v1/calendar/list-events", {
-          method: "GET",
-          headers: {
-            accept: "application/json",
-            "x-luma-api-key": process.env.LUMA_API_KEY as string,
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const data = await res.json() as { entries: EventData[] };
-        setEvents(data.entries);
-      } catch (err: any) {
-        setError(err.message);
-      }
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
     }
 
-    fetchEvents();
+    const data = (await res.json()) as { entries: EventData[] };
+    return data.entries;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const EventList: React.FC = () => {
+  const [events, setEvents] = useState<EventData[]>([]);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    const currentDate = moment().tz("Australia/Sydney").startOf('day');
+    getEvents().then(events => {
+      const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
+      setEvents(futureEvents);
+    }).catch(err => setError(err.message));
   }, []);
 
-  const currentDate = moment().tz("Australia/Sydney").startOf('day'); 
-  const futureEvents = events.filter(({ event }) => moment(event.start_at).tz("Australia/Sydney") >= currentDate);
-
   if (error) {
-    return <div>Error loading events: {error}</div>;
+    return <p>Error loading events: {error}</p>;
   }
 
   return (
     <div className="grid gap-4">
-      {futureEvents.map(({ event, api_id }) => (
+      {events.map(({ event, api_id }) => (
         <a className="event-box" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
-          <img src={event.cover_url} alt={event.name} className="event-image" />
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {moment(event.start_at).tz("Australia/Sydney").format('MMMM Do YYYY')}
           </p>
@@ -73,5 +71,3 @@ const EventList: React.FC = () => {
     </div>
   );
 };
-
-export default EventList;
