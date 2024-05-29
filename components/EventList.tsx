@@ -49,11 +49,7 @@ export const EventList = async () => {
 
               hour: "numeric",
               minute: "2-digit",
-            })} {new Date(event.end_at).toLocaleString(undefined, {
-
-              hour: "numeric",
-              minute: "2-digit",
-            })}
+            })} 
           </p>
           <p className="text-sm text-green-500 font-semibold">
               Register To Attend
