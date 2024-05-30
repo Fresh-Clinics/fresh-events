@@ -120,18 +120,7 @@ const EventList: React.FC = () => {
               <img
                 src={event.cover_url}
                 alt={event.name}
-                className="rounded-md ml-auto absolute top-0 right-0 p-[15px]"
-                style={{ maxWidth: '150px' }}
-                media="(max-width: 639px)"
-              />
-            )}
-            {event.cover_url && (
-              <img
-                src={event.cover_url}
-                alt={event.name}
-                className="rounded-md ml-auto absolute top-0 right-0 p-[15px]"
-                style={{ maxWidth: '200px' }}
-                media="(min-width: 640px)"
+                className="rounded-md ml-auto absolute top-0 right-0 p-[15px] event-image"
               />
             )}
           </div>
