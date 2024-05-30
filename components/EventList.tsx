@@ -72,33 +72,10 @@ const EventList: React.FC = () => {
             <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
           </p>
           <div className="grid gap-1">
-            <h3 className="text-lg font-semibold">{event.name}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <h2 className="text-lg font-semibold">{event.name}</h2>
+            <p className="text-sm text-gray-500">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
-            {event.geo_address_json && (
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                {event.geo_address_json.type && (
-                  <p>Type: {event.geo_address_json.type}</p>
-                )}
-                {event.geo_address_json.place_id && (
-                  <p>Place ID: {event.geo_address_json.place_id}</p>
-                )}
-                {event.geo_address_json.address && (
-                  <p>Address: {event.geo_address_json.address}</p>
-                )}
-                {event.geo_address_json.description && (
-                  <p>Description: {event.geo_address_json.description}</p>
-                )}
-              </div>
-            )}
-            {event.tags && event.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {event.tags.map((tag, index) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">{tag}</span>
-                ))}
-              </div>
-            )}
             <p className="text-md text-green-500 font-semibold mt-2">
               Register To Attend
               <span className="inline-block ml-2">
@@ -107,7 +84,7 @@ const EventList: React.FC = () => {
                 </svg>
               </span>
             </p>
-            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto p-4" style={{ borderRadius: '4px', padding: '15px' }} />}
+            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto p-4" style={{ borderRadius: '4px!important'}} />}
           </div>
         </a>
       ))}
