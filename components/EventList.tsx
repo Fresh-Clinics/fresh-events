@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import moment from 'moment-timezone';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faVideo } from '@fortawesome/free-solid-svg-icons';
 
 type GeoAddressJson = {
   type: string;
@@ -21,7 +19,7 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    geo_address_json?: GeoAddressJson; // Add the geo_address_json field
+    geo_address_json?: GeoAddressJson;
   };
 };
 
@@ -81,7 +79,9 @@ const EventList: React.FC = () => {
             </p>
             {event.geo_address_json && Object.keys(event.geo_address_json).length > 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: '#55555550', marginRight: '5px' }} />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657A8 8 0 1112 4a8 8 0 015.657 12.657zm-5.657 0v2a2 2 0 104 0v-2a2 2 0 00-4 0z" />
+                </svg>
                 {event.geo_address_json.address ? (
                   <>
                     {event.geo_address_json.address}
@@ -93,7 +93,9 @@ const EventList: React.FC = () => {
               </p>
             ) : (
               <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                <FontAwesomeIcon icon={faVideo} style={{ color: '#55555550', marginRight: '5px' }} />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553 2.276A1 1 0 0120 13.117V17a1 1 0 01-1 1H5a1 1 0 01-1-1v-3.883a1 1 0 01.447-.841L9 10v-3a3 3 0 016 0v3z" />
+                </svg>
                 Zoom
               </p>
             )}
@@ -105,7 +107,7 @@ const EventList: React.FC = () => {
                 </svg>
               </span>
             </p>
-            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto absolute top-0 right-0 p-4" />}
+            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto absolute top-0 right-0 p-[15px]" />}
           </div>
         </a>
       ))}
