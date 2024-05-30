@@ -67,12 +67,12 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+        <a className="event-box relative flex flex-col md:flex-row md:items-start" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
           <p className="text-md text-gray-500 dark:text-gray-400">
             {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
             <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
           </p>
-          <div className="grid gap-1 pr-[20%] md:pr-0"> {/* Adjusted padding to avoid text overlap */}
+          <div className="grid gap-1 md:pr-[220px]"> {/* Adjusted padding to avoid text overlap */}
             <h2 className="text-lg font-semibold">{event.name}</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
@@ -116,25 +116,15 @@ const EventList: React.FC = () => {
                 </svg>
               </span>
             </p>
-            {event.cover_url && (
-              <img
-                src={event.cover_url}
-                alt={event.name}
-                className="rounded-md p-[15px] ml-auto absolute top-0 right-0"
-                style={{ maxWidth: '150px' }}
-                media="(max-width: 639px)"
-              />
-            )}
-            {event.cover_url && (
-              <img
-                src={event.cover_url}
-                alt={event.name}
-                className="rounded-md p-[15px] ml-auto absolute top-0 right-0"
-                style={{ maxWidth: '200px' }}
-                media="(min-width: 640px)"
-              />
-            )}
           </div>
+          {event.cover_url && (
+            <img
+              src={event.cover_url}
+              alt={event.name}
+              className="rounded-md p-[15px] ml-auto absolute top-0 right-0 md:relative md:top-auto md:right-auto"
+              style={{ maxWidth: '150px' }}
+            />
+          )}
         </a>
       ))}
     </div>
