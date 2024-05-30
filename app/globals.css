@@ -116,17 +116,12 @@ body {
 }
 
 .event-image {
-  max-width: 150px;
   position: absolute;
   top: 15px; /* Adjust for top alignment */
   right: 15px; /* Adjust for right alignment */
   border-radius: .5rem;
-}
-
-@media (min-width: 640px) {
-  .event-image {
-    max-width: 200px;
-  }
+  width: auto;
+  height: auto;
 }
 
 .event-content {
@@ -134,7 +129,7 @@ body {
   padding-right: 20%;
 }
 
-@media (min-width: 1240px) {
+@media (min-width: 640px) {
   .event-content {
     padding-right: 0;
   }
