@@ -12,7 +12,10 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    location?: string;
+    meeting_url?: string;
+    geo_address_json?: {
+      formatted_address?: string;
+    };
     tags?: string[];
   };
 };
@@ -61,41 +64,42 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+        <a className="event-box relative p-4 border rounded-lg shadow-md bg-white" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
           <p className="text-md text-gray-500 dark:text-gray-400">
             {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
             <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
           </p>
-          <div className="grid gap-1 pr-[20%]"> {/* Adjusted padding to avoid text overlap */}
+          <div className="grid gap-1">
             <h3 className="text-lg font-semibold">{event.name}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
-            {event.location && (
+            {event.meeting_url && (
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                {event.location.startsWith('http') ? (
-                  <a href={event.location} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                    {event.location}
-                  </a>
-                ) : (
-                  event.location
-                )}
+                Online Event: <a href={event.meeting_url} target="_blank" rel="noopener noreferrer">{event.meeting_url}</a>
+              </p>
+            )}
+            {event.geo_address_json?.formatted_address && (
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Location: {event.geo_address_json.formatted_address}
               </p>
             )}
             {event.tags && event.tags.length > 0 && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                Tags: {event.tags.join(', ')}
-              </p>
+              <div className="flex flex-wrap gap-1">
+                {event.tags.map((tag, index) => (
+                  <span key={index} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">{tag}</span>
+                ))}
+              </div>
             )}
-            <p className="text-md text-green-500 font-semibold padding-top">
-              Register To Attend
-              <span className="ml-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="inline w-4 h-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <p className="text-md text-green-500 font-semibold">
+              Register
+              <span className="inline-block ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M12.293 3.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-7 7a1 1 0 01-.707.293H6a1 1 0 01-1-1v-3a1 1 0 01.293-.707l7-7zm1.414 1.414L8 11.414V12h.586l5.707-5.707-1.586-1.586z" clipRule="evenodd" />
                 </svg>
               </span>
             </p>
-            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto absolute top-0 right-0 p-[15px]" />}
+            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto p-4" style={{ borderRadius: '4px!important' }} />}
           </div>
         </a>
       ))}
