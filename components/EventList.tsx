@@ -67,29 +67,25 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
-          <div className="event-content">
-            <p className="text-md text-gray-500 dark:text-gray-400">
-              <span className="font-bold">{moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}</span>
-              <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
-            </p>
+        <a className="event-box" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+          <p className="text-md text-gray-500 dark:text-gray-400">
+            <strong>{moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}</strong>
+            <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
+          </p>
+          <div className="event-content"> {/* Adjusted padding to avoid text overlap */}
             <h2 className="text-lg font-semibold">{event.name}</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
-                <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
-                  <circle cx="8" cy="8" r="7"></circle>
-                  <path d="M8 4v4l2 2"></path>
-                </g>
+                <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854Z"></path>
+                <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
               </svg>
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
             {event.geo_address_json && Object.keys(event.geo_address_json).length > 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
-                  <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
-                    <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854Z"></path>
-                    <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
-                  </g>
+                  <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854Z"></path>
+                  <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
                 </svg>
                 {event.geo_address_json.address ? (
                   <>
@@ -116,14 +112,8 @@ const EventList: React.FC = () => {
                 </svg>
               </span>
             </p>
+            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md event-image" />}
           </div>
-          {event.cover_url && (
-            <img
-              src={event.cover_url}
-              alt={event.name}
-              className="rounded-md event-image"
-            />
-          )}
         </a>
       ))}
     </div>
