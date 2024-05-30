@@ -12,7 +12,8 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    tags: string[]; // Add tags field
+    location?: string; // Add location field
+    tags?: string[]; // Add tags field
   };
 };
 
@@ -65,23 +66,36 @@ const EventList: React.FC = () => {
             {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
             <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
           </p>
-          <div className="grid gap-1">
+          <div className="grid gap-1 pr-[20%]"> {/* Adjusted padding to avoid text overlap */}
             <h3 className="text-lg font-semibold">{event.name}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
+            {event.location && (
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {event.location.startsWith('http') ? (
+                  <a href={event.location} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+                    {event.location}
+                  </a>
+                ) : (
+                  event.location
+                )}
+              </p>
+            )}
+            {event.tags && event.tags.length > 0 && (
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Tags: {event.tags.join(', ')}
+              </p>
+            )}
             <p className="text-md text-green-500 font-semibold padding-top">
               Register To Attend
               <span className="ml-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="inline h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="inline w-4 h-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
             </p>
-            {event.tags && event.tags.map(tag => (
-              <span key={tag} className="text-sm text-gray-600 dark:text-gray-300 mr-2">#{tag}</span>
-            ))}
-            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto mt-4" style={{ padding: '15px' }} />}
+            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto absolute top-0 right-0 p-[15px]" />}
           </div>
         </a>
       ))}
