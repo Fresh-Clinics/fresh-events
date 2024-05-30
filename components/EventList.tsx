@@ -12,6 +12,7 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
+    tags: string[]; // Add tags field
   };
 };
 
@@ -59,29 +60,29 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box flex items-start justify-between" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
-          <div className="flex-grow">
-            <p className="text-md font-semibold text-gray-500">
-              {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
-              <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
+        <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+          <p className="text-md text-gray-500 dark:text-gray-400">
+            {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
+            <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
+          </p>
+          <div className="grid gap-1">
+            <h3 className="text-lg font-semibold">{event.name}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
-            <div className="grid gap-1">
-              <h2 className="text-lg font-semibold">{event.name}</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
-              </p>
-              <p className="text-md text-green-500 font-semibold padding-top">
-                REGISTER
-              </p>
-            </div>
+            <p className="text-md text-green-500 font-semibold padding-top">
+              Register To Attend
+              <span className="ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="inline h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1m0 0h-1V7h1m0 9h-1v-4h1" />
+                </svg>
+              </span>
+            </p>
+            {event.tags && event.tags.map(tag => (
+              <span key={tag} className="text-sm text-gray-600 dark:text-gray-300 mr-2">#{tag}</span>
+            ))}
+            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto mt-4" style={{ padding: '15px' }} />}
           </div>
-          {event.cover_url && (
-            <img
-              src={event.cover_url}
-              alt={event.name}
-              className="rounded-md image-border max-w-[20%] ml-4"
-            />
-          )}
         </a>
       ))}
     </div>
