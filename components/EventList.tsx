@@ -69,7 +69,7 @@ const EventList: React.FC = () => {
       {futureEvents.map(({ event, api_id }) => (
         <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
           <p className="text-md text-gray-500 dark:text-gray-400">
-            {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
+            <span className="font-bold">{moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}</span>
             <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
           </p>
           <div className="grid gap-1 pr-[20%]"> {/* Adjusted padding to avoid text overlap */}
@@ -116,7 +116,24 @@ const EventList: React.FC = () => {
                 </svg>
               </span>
             </p>
-            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto absolute top-0 right-0 p-[15px]" />}
+            {event.cover_url && (
+              <img
+                src={event.cover_url}
+                alt={event.name}
+                className="rounded-md ml-auto absolute top-0 right-0 p-[15px]"
+                style={{ maxWidth: '150px' }}
+                media="(max-width: 639px)"
+              />
+            )}
+            {event.cover_url && (
+              <img
+                src={event.cover_url}
+                alt={event.name}
+                className="rounded-md ml-auto absolute top-0 right-0 p-[15px]"
+                style={{ maxWidth: '200px' }}
+                media="(min-width: 640px)"
+              />
+            )}
           </div>
         </a>
       ))}
