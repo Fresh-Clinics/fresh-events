@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import moment from 'moment-timezone';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faVideo } from '@fortawesome/free-solid-svg-icons';
 
 type GeoAddressJson = {
   type: string;
@@ -78,7 +80,8 @@ const EventList: React.FC = () => {
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
             {event.geo_address_json && Object.keys(event.geo_address_json).length > 0 ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
+                <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: '#55555550', marginRight: '5px' }} />
                 {event.geo_address_json.address ? (
                   <>
                     {event.geo_address_json.address}
@@ -89,7 +92,10 @@ const EventList: React.FC = () => {
                 )}
               </p>
             ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400">Zoom</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
+                <FontAwesomeIcon icon={faVideo} style={{ color: '#55555550', marginRight: '5px' }} />
+                Zoom
+              </p>
             )}
             <p className="text-md text-green-500 font-semibold padding-top">
               Register
