@@ -75,17 +75,19 @@ const EventList: React.FC = () => {
           <div className="event-content"> {/* Adjusted padding to avoid text overlap */}
             <h2 className="text-lg font-semibold">{event.name}</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
-                <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854Z"></path>
-                <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
               {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
             </p>
             {event.geo_address_json && Object.keys(event.geo_address_json).length > 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
-                  <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854Z"></path>
-                  <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
+                  <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+                    <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854Z"></path>
+                    <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
+                  </g>
                 </svg>
                 {event.geo_address_json.address ? (
                   <>
