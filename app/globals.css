@@ -92,5 +92,19 @@ body {
 }
 
 .image-border {
-  border-radius:4px!important;
+  border-radius:0.5rem!important;
+}
+
+/* Add these styles to your global.css */
+
+.event-image {
+  max-width: 150px;
+  border-radius:0.5rem!important;
+}
+
+@media (min-width: 640px) {
+  .event-image {
+    max-width: 200px;
+    border-radius:0.5rem!important;
+  }
 }
