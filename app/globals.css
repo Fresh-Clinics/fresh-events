@@ -102,7 +102,7 @@ body {
   position: relative;
   padding: 15px;
   background-color: #fff; /* Add a background color to ensure the image visibility */
-  border-radius: 8px;
+  border-radius: .5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -111,7 +111,7 @@ body {
   position: absolute;
   top: 15px; /* Adjust for top alignment */
   right: 15px; /* Adjust for right alignment */
-  border-radius: 4px;
+  border-radius: .5rem;
   width: auto;
   height: auto;
   max-width: 150px;
@@ -119,16 +119,10 @@ body {
 
 @media (min-width: 640px) {
   .event-image {
-    max-width: 200px;
+    max-width: 150px; /* Changed from 200px to 150px */
   }
 }
 
 .event-content {
   padding-right: calc(15px + 150px); /* Adjust padding to avoid text overlap */
-}
-
-@media (min-width: 640px) {
-  .event-content {
-    padding-right: calc(15px + 200px);
-  }
 }
