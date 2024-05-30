@@ -79,8 +79,11 @@ const EventList: React.FC = () => {
             </p>
             {event.geo_address_json && Object.keys(event.geo_address_json).length > 0 ? (
               <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657A8 8 0 1112 4a8 8 0 015.657 12.657zm-5.657 0v2a2 2 0 104 0v-2a2 2 0 00-4 0z" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
+                  <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                    <path d="M2 6.854C2 11.02 7.04 15 8 15s6-3.98 6-8.146C14 3.621 11.314 1 8 1S2 3.62 2 6.854Z"></path>
+                    <path d="M9.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
+                  </g>
                 </svg>
                 {event.geo_address_json.address ? (
                   <>
@@ -93,8 +96,8 @@ const EventList: React.FC = () => {
               </p>
             ) : (
               <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553 2.276A1 1 0 0120 13.117V17a1 1 0 01-1 1H5a1 1 0 01-1-1v-3.883a1 1 0 01.447-.841L9 10v-3a3 3 0 016 0v3z" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" className="inline w-4 h-4" style={{ color: '#55555550', marginRight: '5px' }}>
+                  <path fill="currentColor" d="M48 13.208v22.704c0 1.504-.828 1.332-1.533.783L36.5 29.25v-9.38l9.967-7.446c.87-.725 1.533-.556 1.533.784ZM27.553 12c3.768-.017 6.837 3.071 6.856 6.9v16.936a1.252 1.252 0 0 1-1.246 1.255H8.856c-3.768.017-6.837-3.071-6.856-6.9V13.255A1.252 1.252 0 0 1 3.246 12Z"></path>
                 </svg>
                 Zoom
               </p>
