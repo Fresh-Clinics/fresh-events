@@ -102,6 +102,10 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  padding: 15px;
+  background-color: #fff; /* Add a background color to ensure the image visibility */
+  border-radius: .5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 640px) {
@@ -113,14 +117,15 @@ body {
 
 .event-image {
   max-width: 150px;
+  position: absolute;
+  top: 15px; /* Adjust for top alignment */
+  right: 15px; /* Adjust for right alignment */
+  border-radius: .5rem;
 }
 
 @media (min-width: 640px) {
   .event-image {
     max-width: 200px;
-    position: absolute;
-    top: 0;
-    right: 0;
   }
 }
 
