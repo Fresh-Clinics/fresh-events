@@ -12,8 +12,8 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    location?: string; // Add location field
-    tags?: string[]; // Add tags field
+    location?: string;
+    tags?: string[];
   };
 };
 
