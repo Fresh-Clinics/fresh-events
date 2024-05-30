@@ -95,16 +95,42 @@ body {
   border-radius:0.5rem!important;
 }
 
+
 /* Add these styles to your global.css */
+
+.event-box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .event-box {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
 
 .event-image {
   max-width: 150px;
-  border-radius:0.5rem!important;
 }
 
 @media (min-width: 640px) {
   .event-image {
     max-width: 200px;
-    border-radius:0.5rem!important;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.event-content {
+  flex: 1;
+  padding-right: 20%;
+}
+
+@media (min-width: 1240px) {
+  .event-content {
+    padding-right: 0;
   }
 }
