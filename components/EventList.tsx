@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import moment from 'moment-timezone';
+import { FaExternalLinkAlt } from 'react-icons/fa'; // Import the external link icon from react-icons
 
 type EventData = {
   api_id: string;
@@ -12,10 +13,6 @@ type EventData = {
     end_at: string;
     cover_url: string;
     url: string;
-    geo_address_json?: {
-      description?: string;
-    };
-    tags?: string[];
   };
 };
 
@@ -63,36 +60,31 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box relative p-4 border rounded-lg shadow-md bg-white" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
-          <p className="text-md text-gray-500 dark:text-gray-400">
-            {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
-            <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
-          </p>
-          <div className="grid gap-1">
-            <h3 className="text-lg font-semibold">{event.name}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
+        <a className="event-box flex flex-col justify-between relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+          <div>
+            <p className="text-md text-gray-500 dark:text-gray-400">
+              {moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}
+              <span style={{ opacity: 0.5 }}> {moment(event.start_at).tz("Australia/Sydney").format('dddd')}</span>
             </p>
-            {event.geo_address_json?.description && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">{event.geo_address_json.description}</p>
-            )}
-            {event.tags && event.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {event.tags.map((tag, index) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">{tag}</span>
-                ))}
-              </div>
-            )}
-            <p className="text-md text-green-500 font-semibold mt-2">
-              Register To Attend
-              <span className="inline-block ml-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M12.293 3.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-7 7a1 1 0 01-.707.293H6a1 1 0 01-1-1v-3a1 1 0 01.293-.707l7-7zm1.414 1.414L8 11.414V12h.586l5.707-5.707-1.586-1.586z" clipRule="evenodd" />
-                </svg>
-              </span>
-            </p>
-            {event.cover_url && <img src={event.cover_url} alt={event.name} className="rounded-md max-w-[20%] ml-auto p-4" style={{ borderRadius: '4px', padding: '15px' }} />}
+            <div className="grid gap-1">
+              <h2 className="text-lg font-semibold">{event.name}</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {moment(event.start_at).tz("Australia/Sydney").format('h:mm A')} - {moment(event.end_at).tz("Australia/Sydney").format('h:mm A z')}
+              </p>
+            </div>
           </div>
+          <div className="text-md text-green-500 font-semibold flex items-center">
+            Register
+            <FaExternalLinkAlt className="ml-1" />
+          </div>
+          {event.cover_url && (
+            <img
+              src={event.cover_url}
+              alt={event.name}
+              className="absolute top-0 right-0 rounded-md max-w-[20%] p-4"
+              style={{ borderRadius: '4px', padding: '15px' }}
+            />
+          )}
         </a>
       ))}
     </div>
