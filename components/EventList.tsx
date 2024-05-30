@@ -67,7 +67,7 @@ const EventList: React.FC = () => {
   return (
     <div className="grid gap-4">
       {futureEvents.map(({ event, api_id }) => (
-        <a className="event-box" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
+        <a className="event-box relative" key={api_id} href={event.url} target="_blank" rel="noopener noreferrer">
           <div className="event-content">
             <p className="text-md text-gray-500 dark:text-gray-400">
               <span className="font-bold">{moment(event.start_at).tz("Australia/Sydney").format('DD MMM')}</span>
