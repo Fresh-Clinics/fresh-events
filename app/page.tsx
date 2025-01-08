@@ -10,13 +10,13 @@ const Page: React.FC = () => {
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        height: "100vh",
+        height: "120vh",
       }}
     >
       <iframe
         src="https://lu.ma/embed/calendar/cal-PfKCHyYHQHvdr87/events"
-        width="1000"
-        height="1000"
+        width="100vw"
+        height="120vh"
         frameBorder="0"
         style={{
           border: "none",
