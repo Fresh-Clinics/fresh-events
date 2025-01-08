@@ -1,4 +1,4 @@
-<iframe
+<iframe>
   src="https://lu.ma/embed/calendar/cal-PfKCHyYHQHvdr87/events"
   width="1000"
   height="1000"
@@ -7,4 +7,4 @@
   allowfullscreen="true"
   aria-hidden="false"
   tabindex="0"
-></iframe>
+</iframe>
