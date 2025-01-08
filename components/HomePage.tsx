@@ -1,7 +1,4 @@
-import EventList from "@/components/EventList";
 
-export function HomePage() {
-  return (
     <iframe
   src="https://lu.ma/embed/calendar/cal-PfKCHyYHQHvdr87/events"
   frameborder="0"
@@ -10,5 +7,4 @@ export function HomePage() {
   aria-hidden="false"
   tabindex="0"
 ></iframe>
-  );
-}
+  
