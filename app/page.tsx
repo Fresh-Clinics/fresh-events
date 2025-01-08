@@ -6,7 +6,7 @@ const Page: React.FC = () => {
   return (
     <div
       style={{
-        background: "#f4f5f6",
+        background: "#f4f5f6!important",
         display: "flex",
         justifyContent: "flex-start",
         alignItems: "flex-start",
