@@ -15,8 +15,8 @@ const Page: React.FC = () => {
     >
       <iframe
         src="https://lu.ma/embed/calendar/cal-PfKCHyYHQHvdr87/events"
-        width="100vw"
-        height="120vh"
+        width="100%!important"
+        height="1000"
         frameBorder="0"
         style={{
           border: "none",
